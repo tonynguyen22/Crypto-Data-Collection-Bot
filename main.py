@@ -47,7 +47,7 @@ def basicinfoHelper(message):
   try:
     result = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="+message.text.lower()+"&order=market_cap_desc").json()[0]
     dict = {
-    'Symbol': result.get('symbol'),
+    'Symbol Test': result.get('symbol'),
     'Name': result.get('name'),
     'Current Price': result.get('current_price'),
     'Price change 24h': round(float(result.get('price_change_24h')),2),
