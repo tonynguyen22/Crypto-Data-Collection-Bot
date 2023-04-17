@@ -23,6 +23,6 @@ https://t.me/tony2k_bot
 ## /chart
 ![image](https://user-images.githubusercontent.com/69407233/222343928-5a2a3327-f718-4572-abd5-3f462a8553e0.png)
 
-#Coming soon:
+## Coming soon:
 
 - Bitcoin prediction based on Daily Exponential Moving Average and Supply&Demand concept
