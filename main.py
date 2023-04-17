@@ -1,4 +1,3 @@
-import os
 import telebot
 from telebot import types 
 import requests 
@@ -8,8 +7,10 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from pandas.plotting import table
 from tabulate import tabulate
 from numerize import numerize
+
 
 #Start the bot
 API_KEY = '5656374342:AAGEr_eZpxND_kwnDPpB3EcX2vEtst4sdS4'
@@ -37,101 +38,50 @@ def button_gen(buttons):
 def start(message): 
   message = bot.send_message(message.chat.id, text.choose_option_msg) 
 
-#/basicinfo
-@bot.message_handler(commands=['basicinfo'])
+#/info
+@bot.message_handler(commands=['info'])
 def basicinfo(message):
   markup = types.ReplyKeyboardRemove(selective=False)
   message = bot.send_message(message.chat.id, text.enter_coin_msg,reply_markup=markup)
   bot.register_next_step_handler(message,basicinfoHelper)
 def basicinfoHelper(message):
   try:
+    bot.send_message(message.chat.id,text.twoversions_msg)
     result = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="+message.text.lower()+"&order=market_cap_desc").json()[0]
     dict = {
-    'Symbol Test': result.get('symbol'),
+    'Symbol': result.get('symbol'),
     'Name': result.get('name'),
     'Current Price': result.get('current_price'),
     'Price change 24h': round(float(result.get('price_change_24h')),2),
     'Price change 24h (%)': round(float(result.get('price_change_percentage_24h')),2),
-    'Volume': numerize.numerize(int(result.get('total_volume')))
+    'Volume': numerize.numerize(int(result.get('total_volume'))),
+    'Market Cap': numerize.numerize(int(result.get('market_cap'))),
+    'Market Cap Rank': result.get('market_cap_rank'),
+    'Market Cap Change 24h': numerize.numerize(float(result.get('market_cap_change_24h'))),
+    'Market Cap Change 24h (%)': round(float(result.get('market_cap_change_percentage_24h')),2),
+    'High 24h': str(result.get('high_24h')),
+    'Low 24h': str(result.get('low_24h')),
+    'All-time high': round(int(result.get('ath')),2),
+    'Change since ATH (%)': round(float(result.get('ath_change_percentage')),2),
+    'All-time low': round(int(result.get('atl')),2),
+    'Change since ATL (%)': round(float(result.get('atl_change_percentage')),2),
     }
-    df = pd.DataFrame.from_dict(dict,orient ='index')
-    table = tabulate(df, tablefmt ="double_grid")
-    message = bot.send_message(message.chat.id, f'<pre>{table}</pre>', parse_mode="HTML")
+    df = pd.DataFrame.from_dict(dict,orient ='index', columns=['Info'])
+    ax = plt.subplot(111,frame_on=False)
+    ax.xaxis.set_visible(False)
+    ax.yaxis.set_visible(False)
+    table(ax,df,loc='center')
+    plt.savefig("random.png",bbox_inches='tight')
+    df = tabulate(df, tablefmt ="simple")
+    message = bot.send_message(message.chat.id, f'<pre>{df}</pre>', parse_mode="HTML")
+    photo = open('random.png', 'rb')
+    bot.send_photo(message.chat.id, photo)
+    plt.clf()
     message = bot.send_message(message.chat.id, text.choose_nextoption_msg) 
   except Exception as e:
     print(e)
     message = bot.send_message(message.chat.id,text.invalid_symbol_msg)
     bot.register_next_step_handler(message,basicinfoHelper)
-
-#/marketcap
-@bot.message_handler(commands=['marketcap'])
-def marketcap(message):
-  markup = types.ReplyKeyboardRemove(selective=False)
-  message = bot.send_message(message.chat.id, text.enter_coin_msg,reply_markup=markup)
-  bot.register_next_step_handler(message,marketcapHelper)
-def marketcapHelper(message):
-  try:
-    result = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="+message.text.lower()+"&order=market_cap_desc").json()[0]
-    dict = {
-    'Market Cap': numerize.numerize(int(result.get('market_cap'))),
-    'Market Cap Rank': result.get('market_cap_rank'),
-    'Market Cap Change 24h': numerize.numerize(float(result.get('market_cap_change_24h'))),
-    'Market Cap Change 24h (%)': round(float(result.get('market_cap_change_percentage_24h')),2)  
-    }
-    df = pd.DataFrame.from_dict(dict,orient ='index')
-    table = tabulate(df, tablefmt ="double_grid")
-    message = bot.send_message(message.chat.id, f'<pre>{table}</pre>', parse_mode="HTML")
-    message = bot.send_message(message.chat.id, text.choose_nextoption_msg) 
-  except Exception as e:
-    print(e)
-    message = bot.send_message(message.chat.id,text.invalid_symbol_msg)
-    bot.register_next_step_handler(message,marketcap)
-
-#/highlow
-@bot.message_handler(commands=['highlow'])
-def highlow(message):
-  markup = types.ReplyKeyboardRemove(selective=False)
-  message = bot.send_message(message.chat.id, text.enter_coin_msg,reply_markup=markup)
-  bot.register_next_step_handler(message,highlowHelper)
-def highlowHelper(message):
-  try:
-    result = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="+message.text.lower()+"&order=market_cap_desc").json()[0]
-    dict = {
-    'High 24h': str(result.get('high_24h')),
-    'Low 24h': str(result.get('low_24h')) 
-    }
-    df = pd.DataFrame.from_dict(dict,orient ='index')
-    table = tabulate(df, tablefmt ="double_grid")
-    message = bot.send_message(message.chat.id, f'<pre>{table}</pre>', parse_mode="HTML")
-    message = bot.send_message(message.chat.id, text.choose_nextoption_msg) 
-  except Exception as e:
-    print(e)
-    message = bot.send_message(message.chat.id,text.invalid_symbol_msg)
-    bot.register_next_step_handler(message,marketcap)
-
-#/athatl
-@bot.message_handler(commands=['athatl'])
-def athatl(message):
-  markup = types.ReplyKeyboardRemove(selective=False)
-  message = bot.send_message(message.chat.id, text.enter_coin_msg,reply_markup=markup)
-  bot.register_next_step_handler(message,athatlHelper)
-def athatlHelper(message):
-  try:
-    result = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids="+message.text.lower()+"&order=market_cap_desc").json()[0]
-    dict = {
-    'All-time high': round(int(result.get('ath')),2),
-    'Change since ATH (%)': round(float(result.get('ath_change_percentage')),2),
-    'All-time low': round(int(result.get('atl')),2),
-    'Change since ATL (%)': round(float(result.get('atl_change_percentage')),2)  
-    }
-    df = pd.DataFrame.from_dict(dict,orient ='index')
-    table = tabulate(df, tablefmt ="double_grid")
-    message = bot.send_message(message.chat.id, f'<pre>{table}</pre>', parse_mode="HTML")
-    message = bot.send_message(message.chat.id, text.choose_nextoption_msg) 
-  except Exception as e:
-    print(e)
-    message = bot.send_message(message.chat.id,text.invalid_symbol_msg)
-    bot.register_next_step_handler(message,athatl)
 
 #/chart
 @bot.message_handler(commands=['chart'])
