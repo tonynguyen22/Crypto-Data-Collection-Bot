@@ -15,13 +15,13 @@ Library: pyTelegramBotAPI, matplotlib, pandas, requests, numpy, tabulate
 https://t.me/tony2k_bot
 
 # List of commands
-![image](https://user-images.githubusercontent.com/69407233/222343068-22630e9d-6f3e-403f-9e1b-2787cea370cb.png)
+![image](https://user-images.githubusercontent.com/69407233/232637051-9a9604ed-25e9-460a-b4ef-dea7234b406b.png)
 
 ## /info
-![image](https://user-images.githubusercontent.com/69407233/222343282-34d010aa-3bd0-4736-ac8f-a3bcf84aad89.png)
+![image](https://user-images.githubusercontent.com/69407233/232637110-431e29a8-10f7-431c-8dd0-0a60b920a863.png)
 
 ## /chart
-![image](https://user-images.githubusercontent.com/69407233/222343928-5a2a3327-f718-4572-abd5-3f462a8553e0.png)
+![image](https://user-images.githubusercontent.com/69407233/232637159-b670419b-9c6d-4da6-9c91-9cb55036f7cd.png)
 
 ## Coming soon:
 
