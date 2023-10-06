@@ -26,3 +26,57 @@ https://t.me/tony2k_bot
 ## Coming soon:
 
 - Bitcoin prediction based on Daily Exponential Moving Average and Supply&Demand concept
+
+# Telegram Cryptocurrency Bot
+
+This Telegram bot provides information about cryptocurrencies, including their details and all-time price charts.
+
+## Getting Started
+
+To use this bot, follow these steps:
+
+1. Start a chat with the bot by searching for it on Telegram or using the provided API key.
+2. Use the following commands to interact with the bot:
+
+   - `/start`: Start the bot and see available options.
+   - `/info`: Get detailed information about a cryptocurrency.
+   - `/chart`: View the all-time price chart of a cryptocurrency.
+
+## Prerequisites
+
+Before running the bot, make sure you have the following dependencies installed:
+
+- `telebot`: Telegram Bot API wrapper.
+- `requests`: HTTP library for making API requests.
+- `pandas`: Data manipulation library.
+- `numpy`: Library for numerical operations.
+- `matplotlib`: Plotting library for creating charts.
+- `tabulate`: Formatting library for tabular data.
+- `numerize`: Library for formatting numbers.
+
+## Usage
+
+1. Start the bot by running the Python script.
+2. Interact with the bot using the provided commands.
+3. Enter the name of a cryptocurrency to get information or view its all-time chart.
+
+## Commands
+
+- `/start`: Start the bot and see available options.
+- `/info`: Get detailed information about a cryptocurrency.
+- `/chart`: View the all-time price chart of a cryptocurrency.
+
+## Authors
+
+- Kien Le
+- Tony Nguyen
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- This bot uses the CoinGecko API to fetch cryptocurrency data.
+
+Enjoy using the Telegram Cryptocurrency Bot!
