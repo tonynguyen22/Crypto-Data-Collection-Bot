@@ -1,4 +1,4 @@
-# Telegram Cryptocurrency Bot
+# Telegram Cryptocurrency Bot (SQL)
 
 This Telegram bot provides information about cryptocurrencies, including their details and all-time price charts.
 
