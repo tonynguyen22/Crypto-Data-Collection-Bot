@@ -63,20 +63,14 @@ Before running the bot, make sure you have the following dependencies installed:
 ## Commands
 
 - `/start`: Start the bot and see available options.
+- ![image](https://user-images.githubusercontent.com/69407233/232637051-9a9604ed-25e9-460a-b4ef-dea7234b406b.png)
 - `/info`: Get detailed information about a cryptocurrency.
+- ![image](https://user-images.githubusercontent.com/69407233/232637110-431e29a8-10f7-431c-8dd0-0a60b920a863.png)
 - `/chart`: View the all-time price chart of a cryptocurrency.
+- ![image](https://user-images.githubusercontent.com/69407233/232637159-b670419b-9c6d-4da6-9c91-9cb55036f7cd.png)
 
 ## Authors
 
-- Kien Le
 - Tony Nguyen
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- This bot uses the CoinGecko API to fetch cryptocurrency data.
 
 Enjoy using the Telegram Cryptocurrency Bot!
